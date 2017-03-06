@@ -11,9 +11,12 @@ import XCTest
 @testable import Connect3
 class BoardTests: XCTestCase {
     
+    var board : Board!
+    
     override func setUp() {
         super.setUp()
-        // Put setup code here. This method is called before the invocation of each test method in the class.
+        
+        board = Board()
     }
     
     override func tearDown() {
@@ -23,13 +26,11 @@ class BoardTests: XCTestCase {
     
     // Test de inicialización del tablero
     func testCanInitializeBoard() {
-        let board = Board()
         XCTAssertNotNil(board)
     }
     
     // Test de Después de añadir una ficha, está en su posición correcta
     func testAfterAddingCoinItsTheRightPosition() {
-        var board = Board()
         
         // Red player
         board.playAt(col: 0, player: .Red)
@@ -42,5 +43,10 @@ class BoardTests: XCTestCase {
         
         player = board.playerAt(col: 0, row: 1)
         XCTAssertEqual(player, .White)
+    }
+    
+    // Test de que la posición es Empty
+    func testThatAPlayerPositionIsEmpty() {
+        
     }
 }
