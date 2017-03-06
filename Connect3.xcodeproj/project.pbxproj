@@ -12,7 +12,8 @@
 		DF339B9F1E6DFCE2009E0251 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF339B9D1E6DFCE2009E0251 /* Main.storyboard */; };
 		DF339BA11E6DFCE2009E0251 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = DF339BA01E6DFCE2009E0251 /* Assets.xcassets */; };
 		DF339BA41E6DFCE2009E0251 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF339BA21E6DFCE2009E0251 /* LaunchScreen.storyboard */; };
-		DF339BAF1E6DFCE2009E0251 /* Connect3Tests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF339BAE1E6DFCE2009E0251 /* Connect3Tests.swift */; };
+		DF339BBA1E6E0672009E0251 /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF339BB91E6E0672009E0251 /* BoardTests.swift */; };
+		DF339BBD1E6E0766009E0251 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF339BBC1E6E0766009E0251 /* Board.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -34,8 +35,9 @@
 		DF339BA31E6DFCE2009E0251 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		DF339BA51E6DFCE2009E0251 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF339BAA1E6DFCE2009E0251 /* Connect3Tests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = Connect3Tests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		DF339BAE1E6DFCE2009E0251 /* Connect3Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Connect3Tests.swift; sourceTree = "<group>"; };
 		DF339BB01E6DFCE2009E0251 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		DF339BB91E6E0672009E0251 /* BoardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
+		DF339BBC1E6E0766009E0251 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -77,6 +79,7 @@
 		DF339B981E6DFCE2009E0251 /* Connect3 */ = {
 			isa = PBXGroup;
 			children = (
+				DF339BBB1E6E074D009E0251 /* Models */,
 				DF339B991E6DFCE2009E0251 /* AppDelegate.swift */,
 				DF339B9B1E6DFCE2009E0251 /* ViewController.swift */,
 				DF339B9D1E6DFCE2009E0251 /* Main.storyboard */,
@@ -90,10 +93,18 @@
 		DF339BAD1E6DFCE2009E0251 /* Connect3Tests */ = {
 			isa = PBXGroup;
 			children = (
-				DF339BAE1E6DFCE2009E0251 /* Connect3Tests.swift */,
 				DF339BB01E6DFCE2009E0251 /* Info.plist */,
+				DF339BB91E6E0672009E0251 /* BoardTests.swift */,
 			);
 			path = Connect3Tests;
+			sourceTree = "<group>";
+		};
+		DF339BBB1E6E074D009E0251 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				DF339BBC1E6E0766009E0251 /* Board.swift */,
+			);
+			name = Models;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -150,6 +161,7 @@
 					};
 					DF339BA91E6DFCE2009E0251 = {
 						CreatedOnToolsVersion = 8.2.1;
+						LastSwiftMigration = 0820;
 						ProvisioningStyle = Automatic;
 						TestTargetID = DF339B951E6DFCE2009E0251;
 					};
@@ -201,6 +213,7 @@
 			files = (
 				DF339B9C1E6DFCE2009E0251 /* ViewController.swift in Sources */,
 				DF339B9A1E6DFCE2009E0251 /* AppDelegate.swift in Sources */,
+				DF339BBD1E6E0766009E0251 /* Board.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -208,7 +221,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				DF339BAF1E6DFCE2009E0251 /* Connect3Tests.swift in Sources */,
+				DF339BBA1E6E0672009E0251 /* BoardTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -362,10 +375,12 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Connect3Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JoseJacin.Connect3Tests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Connect3.app/Connect3";
 			};
@@ -376,6 +391,7 @@
 			buildSettings = {
 				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
 				BUNDLE_LOADER = "$(TEST_HOST)";
+				CLANG_ENABLE_MODULES = YES;
 				INFOPLIST_FILE = Connect3Tests/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = JoseJacin.Connect3Tests;
