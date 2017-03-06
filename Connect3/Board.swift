@@ -70,4 +70,56 @@ struct Board {
         // Se retorna la posición
         return _board[col][row]
     }
+    
+    // Función que retorna si el jugador ha ganado en una columna
+    func winInAColumn (col: Int, row: Int, player: Player) -> Bool {
+        
+        var countPlayer = 0
+        var currentPlayer = player
+        
+        for index in (0...row).reversed() {
+             currentPlayer = playerAt(col: col, row: index)
+            if currentPlayer == player {
+                countPlayer = countPlayer + 1
+                
+                if countPlayer == 3 {
+                    return true
+                }
+            } else {
+                return false
+            }
+        }
+        return false
+    }
+    
+    // Función que retorna si el jugador ha ganado en una columna
+    func winInARow (col: Int, row: Int, player: Player) -> Bool {
+        
+        var countPlayer = 0
+        
+        for index in 0...Board.width {
+            if playerAt(col: index, row: row) == player {
+                countPlayer = countPlayer + 1
+                
+                if countPlayer == 3 {
+                    return true
+                }
+            }
+        }
+        return false
+    }
+    
+    // Función que retorna si el jugador ha ganado en una columna
+    func tie () -> Bool {
+        // Llamar en bucle a winInAColumn y a winInARow y a winInADiagonal
+        
+        /*
+         var rawDataOut = Array(1...40)
+         var maskPixels = [Int](count: 10, repeatedValue: 0)
+         
+         for var i: Int = 0, j: Int = 0; i < rawDataOut.count-3; i += 4, ++j {
+            maskPixels[j] = rawDataOut[i + 3]
+            }
+ */
+    }
 }
