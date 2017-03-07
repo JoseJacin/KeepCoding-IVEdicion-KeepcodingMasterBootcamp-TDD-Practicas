@@ -87,15 +87,13 @@ struct Board {
         }
         
         var countPlayer = 0
-        var currentPlayer = player
         
         if row < numberOfChipsToWin-1 {
             return false
         }
         
         for index in (0...row).reversed() {
-             currentPlayer = playerAt(col: col, row: index)
-            if currentPlayer == player {
+            if playerAt(col: col, row: index) == player {
                 countPlayer += 1
                 
                 if countPlayer == numberOfChipsToWin {
@@ -326,6 +324,31 @@ struct Board {
 		return false
 	}
     
+	// Función que retorna si un jugador ha ganado en la columna
+	// Si nadie ha ganado retorna Empty
+	func winColumn (col: Int) -> Player {
+		guard col >= 0 && col < Board.width else {
+            return .Empty
+        }
+        
+        var countPlayer = 0
+        var currentPlayer = playerAt(col: col, row: index)
+		var AntPlayer = .Empty
+        
+        for index in 0...Board.height {
+            if currentPlayer == player {
+                countPlayer += 1
+                
+                if countPlayer == numberOfChipsToWin {
+                    return true
+                }
+            } else {
+                return false
+            }
+        }
+        return false
+	}
+	
     // Función que retorna si el jugador ha ganado en una columna
     func tie () -> Bool {
         // Llamar en bucle a winInAColumn y a winInARow y a winInADiagonal
@@ -337,6 +360,28 @@ struct Board {
          for var i: Int = 0, j: Int = 0; i < rawDataOut.count-3; i += 4, ++j {
             maskPixels[j] = rawDataOut[i + 3]
             }
- */
-    }
+
+ 
+		for (col in )
+		
+		winInAColumn (col: Int, row: Int, player: Player) -> Bool {
+		
+
+for var indexCol: Int = col, indexRow: Int = row; indexCol < Board.width, indexRow >= 0; ++indexCol, --indexRow {		
+			
+			
+			
+			for row in 0..<8 {
+  if row % 2 == 0 {
+    continue
+  }
+ 
+  for column in 0..<8 {
+    sum += row * column
+  }
 }
+ 
+    }
+	 */
+}
+
