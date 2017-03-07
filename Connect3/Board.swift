@@ -57,6 +57,8 @@ struct Board {
         }
     }
     
+    // Función que retorna el jugador que se encuentra en esa posición
+    // Si no hay jugador, retorna Empty
     func playerAt(col: Int, row: Int) -> Player {
         // Se controla que la columna se encuentre entre los límites permitidos
         guard col >= 0 && col < Board.width else {
