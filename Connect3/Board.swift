@@ -151,6 +151,37 @@ struct Board {
         return false
     }
     
+    // Función que retorna si el jugador ha ganado en una diagonal hacia la izquierda y arriba
+    func winInADiagonalLeftUp (col: Int, row: Int, player: Player) -> Bool {
+		// Se controla que la columna se encuentre entre los límites permitidos
+		guard col >= 0 && col < Board.width else {
+			return .Empty
+		}
+
+		// Se controla que la fila se encuentre entre los límites permitidos
+		guard row >= 0 && row < Board.height else {
+			return .Empty
+		}
+
+		var countPlayer = 0
+
+		// Se valida en diagonal hacia la izquierda y arriba
+		for indexColGen in 0..board.width {
+			countPlayer = 0
+			for var indexCol: Int = indexColGen, indexRow: Int = 0; indexCol >= 0, indexRow < board.height; --indexCol, ++indexRow {
+				if playerAt(col: index, row: row) == player {
+					countPlayer = countPlayer + 1
+					
+					if countPlayer == numberOfChipsToWin {
+						return true
+					}
+				} else {
+					break
+				}
+			}
+		}
+	}
+    
     // Función que retorna si el jugador ha ganado en una columna
     func tie () -> Bool {
         // Llamar en bucle a winInAColumn y a winInARow y a winInADiagonal
