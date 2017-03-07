@@ -49,7 +49,14 @@ class BoardTests: XCTestCase {
     
     // Test de que la posición es Empty
     func testThatAPlayerPositionIsEmpty() {
-        XCTAssertEqual(board.playerAt(col: 0, row: 2), .Empty)
+        XCTAssertEqual(board.playerAt(col: 0, row: 0), .Empty)
+    }
+    
+    // Test de que la posición NO es Empty
+    func testThatAPlayerPositionIsNotEmpty() {
+        // Red player
+        board.playAt(col: 0, player: .Red)
+        XCTAssertNotEqual(board.playerAt(col: 0, row: 0), .Empty)
     }
     
     // Test de que la columna no cambia de estado cuando se añade una ficha en una columna llena
@@ -57,31 +64,26 @@ class BoardTests: XCTestCase {
         
         // Red player
         board.playAt(col: 0, player: .Red)
-        
         player = board.playerAt(col: 0, row: 0)
         XCTAssertEqual(player, .Red)
         
         // White player
         board.playAt(col: 0, player: .White)
-        
         player = board.playerAt(col: 0, row: 1)
         XCTAssertEqual(player, .White)
         
         // Red player
         board.playAt(col: 0, player: .Red)
-        
         player = board.playerAt(col: 0, row: 2)
         XCTAssertEqual(player, .Red)
         
         // White player
         board.playAt(col: 0, player: .White)
-        
         player = board.playerAt(col: 0, row: 3)
         XCTAssertEqual(player, .White)
         
         // Red player
         board.playAt(col: 0, player: .Red)
-        
         player = board.playerAt(col: 0, row: 4)
         XCTAssertEqual(player, .Red)
         
@@ -101,62 +103,52 @@ class BoardTests: XCTestCase {
         // Column 0
         // Red player
         board.playAt(col: 0, player: .Red)
-        
         player = board.playerAt(col: 0, row: 0)
         XCTAssertEqual(player, .Red)
         
         // White player
         board.playAt(col: 0, player: .White)
-        
         player = board.playerAt(col: 0, row: 1)
         XCTAssertEqual(player, .White)
         
         // Red player
         board.playAt(col: 0, player: .Red)
-        
         player = board.playerAt(col: 0, row: 2)
         XCTAssertEqual(player, .Red)
         
         // White player
         board.playAt(col: 0, player: .White)
-        
         player = board.playerAt(col: 0, row: 3)
         XCTAssertEqual(player, .White)
         
         // Red player
         board.playAt(col: 0, player: .Red)
-        
         player = board.playerAt(col: 0, row: 4)
         XCTAssertEqual(player, .Red)
         
         // Column 1
         // Red player
         board.playAt(col: 1, player: .Red)
-        
         player = board.playerAt(col: 1, row: 0)
         XCTAssertEqual(player, .Red)
         
         // Red player
         board.playAt(col: 1, player: .Red)
-        
         player = board.playerAt(col: 1, row: 1)
         XCTAssertEqual(player, .Red)
         
         // White player
         board.playAt(col: 1, player: .White)
-        
         player = board.playerAt(col: 1, row: 2)
         XCTAssertEqual(player, .White)
         
         // White player
         board.playAt(col: 1, player: .White)
-        
         player = board.playerAt(col: 1, row: 3)
         XCTAssertEqual(player, .White)
         
         // White player
         board.playAt(col: 1, player: .White)
-        
         player = board.playerAt(col: 1, row: 4)
         XCTAssertEqual(player, .White)
         
@@ -172,62 +164,52 @@ class BoardTests: XCTestCase {
         // Column 0
         // Red player
         board.playAt(col: 0, player: .Red)
-        
         player = board.playerAt(col: 0, row: 0)
         XCTAssertEqual(player, .Red)
         
         // White player
         board.playAt(col: 1, player: .White)
-        
         player = board.playerAt(col: 1, row: 0)
         XCTAssertEqual(player, .White)
         
         // Red player
         board.playAt(col: 2, player: .Red)
-        
         player = board.playerAt(col: 2, row: 0)
         XCTAssertEqual(player, .Red)
         
         // White player
         board.playAt(col: 3, player: .White)
-        
         player = board.playerAt(col: 3, row: 0)
         XCTAssertEqual(player, .White)
         
         // Red player
         board.playAt(col: 4, player: .Red)
-        
         player = board.playerAt(col: 4, row: 0)
         XCTAssertEqual(player, .Red)
         
         // Column 1
         // Red player
         board.playAt(col: 0, player: .Red)
-        
         player = board.playerAt(col: 0, row: 1)
         XCTAssertEqual(player, .Red)
         
         // Red player
         board.playAt(col: 1, player: .Red)
-        
         player = board.playerAt(col: 1, row: 1)
         XCTAssertEqual(player, .Red)
         
         // White player
         board.playAt(col: 2, player: .White)
-        
         player = board.playerAt(col: 2, row: 1)
         XCTAssertEqual(player, .White)
         
         // White player
         board.playAt(col: 3, player: .White)
-        
         player = board.playerAt(col: 3, row: 1)
         XCTAssertEqual(player, .White)
         
         // White player
         board.playAt(col: 4, player: .White)
-        
         player = board.playerAt(col: 4, row: 1)
         XCTAssertEqual(player, .White)
         
