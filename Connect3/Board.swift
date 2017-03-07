@@ -108,6 +108,16 @@ struct Board {
     
     // Función que retorna si el jugador ha ganado en una columna
     func winInARow (col: Int, row: Int, player: Player) -> Bool {
+        // Se controla que la columna se encuentre entre los límites permitidos
+        guard col >= 0 && col < Board.width else {
+            return .Empty
+        }
+        
+        // Se controla que la fila se encuentre entre los límites permitidos
+        guard row >= 0 && row < Board.height else {
+            return .Empty
+        }
+        
         var countPlayer = 0
   
         // Se valida hacia la izquierda
