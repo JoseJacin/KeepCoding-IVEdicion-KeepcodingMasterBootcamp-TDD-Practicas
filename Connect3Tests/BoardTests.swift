@@ -33,16 +33,13 @@ class BoardTests: XCTestCase {
     
     // Test de Después de añadir una ficha, está en su posición correcta
     func testAfterAddingCoinItsTheRightPosition() {
-        
         // Red player
         board.playAt(col: 0, player: .Red)
-        
         player = board.playerAt(col: 0, row: 0)
         XCTAssertEqual(player, .Red)
         
         // White player
         board.playAt(col: 0, player: .White)
-        
         player = board.playerAt(col: 0, row: 1)
         XCTAssertEqual(player, .White)
     }
@@ -61,7 +58,6 @@ class BoardTests: XCTestCase {
     
     // Test de que la columna no cambia de estado cuando se añade una ficha en una columna llena
     func testNotChangeStatusWhenAddedInAFullColumn() {
-        
         // Red player
         board.playAt(col: 0, player: .Red)
         player = board.playerAt(col: 0, row: 0)
@@ -99,7 +95,6 @@ class BoardTests: XCTestCase {
     
     // Test para comprobar que se ha ganado en una columna
     func testForAWinInAColumn() {
-        
         // Column 0
         // Red player
         board.playAt(col: 0, player: .Red)
@@ -160,7 +155,6 @@ class BoardTests: XCTestCase {
     
     // Test para comprobar que se ha ganado en una columna
     func testForAWinInARow() {
-        
         // Column 0
         // Red player
         board.playAt(col: 0, player: .Red)
