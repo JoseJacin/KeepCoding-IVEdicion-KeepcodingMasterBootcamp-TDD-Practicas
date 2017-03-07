@@ -22,7 +22,7 @@ struct Board {
     //MARK: - Properties
     static let width = 5 // Ancho
     static let height = 5 // Alto
-    static let numberOfChipsToWin = 3
+    static let numberOfChipsToWin = 3 // Número de fichas para ganar
     
     var _board : [BoardColumn]
 
