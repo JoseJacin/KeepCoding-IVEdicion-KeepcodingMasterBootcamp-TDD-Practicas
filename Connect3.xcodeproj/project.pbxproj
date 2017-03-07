@@ -14,6 +14,7 @@
 		DF339BA41E6DFCE2009E0251 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = DF339BA21E6DFCE2009E0251 /* LaunchScreen.storyboard */; };
 		DF339BBA1E6E0672009E0251 /* BoardTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF339BB91E6E0672009E0251 /* BoardTests.swift */; };
 		DF339BBD1E6E0766009E0251 /* Board.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF339BBC1E6E0766009E0251 /* Board.swift */; };
+		DF8415D11E6F4EC700CBE644 /* SequenceTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = DF8415D01E6F4EC700CBE644 /* SequenceTest.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -38,6 +39,7 @@
 		DF339BB01E6DFCE2009E0251 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		DF339BB91E6E0672009E0251 /* BoardTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = BoardTests.swift; sourceTree = "<group>"; };
 		DF339BBC1E6E0766009E0251 /* Board.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Board.swift; sourceTree = "<group>"; };
+		DF8415D01E6F4EC700CBE644 /* SequenceTest.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SequenceTest.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -93,8 +95,9 @@
 		DF339BAD1E6DFCE2009E0251 /* Connect3Tests */ = {
 			isa = PBXGroup;
 			children = (
+				DF8415CD1E6F4E8700CBE644 /* Frameworks */,
 				DF339BB01E6DFCE2009E0251 /* Info.plist */,
-				DF339BB91E6E0672009E0251 /* BoardTests.swift */,
+				DF8415CC1E6F4E7A00CBE644 /* App */,
 			);
 			path = Connect3Tests;
 			sourceTree = "<group>";
@@ -105,6 +108,22 @@
 				DF339BBC1E6E0766009E0251 /* Board.swift */,
 			);
 			name = Models;
+			sourceTree = "<group>";
+		};
+		DF8415CC1E6F4E7A00CBE644 /* App */ = {
+			isa = PBXGroup;
+			children = (
+				DF339BB91E6E0672009E0251 /* BoardTests.swift */,
+			);
+			name = App;
+			sourceTree = "<group>";
+		};
+		DF8415CD1E6F4E8700CBE644 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				DF8415D01E6F4EC700CBE644 /* SequenceTest.swift */,
+			);
+			name = Frameworks;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -221,6 +240,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				DF8415D11E6F4EC700CBE644 /* SequenceTest.swift in Sources */,
 				DF339BBA1E6E0672009E0251 /* BoardTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,6 +440,7 @@
 				DF339BB51E6DFCE2009E0251 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		DF339BB61E6DFCE2009E0251 /* Build configuration list for PBXNativeTarget "Connect3Tests" */ = {
 			isa = XCConfigurationList;
@@ -428,6 +449,7 @@
 				DF339BB81E6DFCE2009E0251 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
 	};

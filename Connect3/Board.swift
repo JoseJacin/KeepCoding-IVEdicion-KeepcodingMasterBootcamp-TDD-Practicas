@@ -78,17 +78,17 @@ struct Board {
     func winInAColumn (col: Int, row: Int, player: Player) -> Bool {
         // Se controla que la columna se encuentre entre los límites permitidos
         guard col >= 0 && col < Board.width else {
-            return .Empty
+            return false
         }
         
         // Se controla que la fila se encuentre entre los límites permitidos
         guard row >= 0 && row < Board.height else {
-            return .Empty
+            return false
         }
         
         var countPlayer = 0
         
-        if row < numberOfChipsToWin-1 {
+        if row < Board.numberOfChipsToWin-1 {
             return false
         }
         
@@ -96,7 +96,7 @@ struct Board {
             if playerAt(col: col, row: index) == player {
                 countPlayer += 1
                 
-                if countPlayer == numberOfChipsToWin {
+                if countPlayer == Board.numberOfChipsToWin {
                     return true
                 }
             } else {
@@ -110,12 +110,12 @@ struct Board {
     func winInARow (col: Int, row: Int, player: Player) -> Bool {
         // Se controla que la columna se encuentre entre los límites permitidos
         guard col >= 0 && col < Board.width else {
-            return .Empty
+            return false
         }
         
         // Se controla que la fila se encuentre entre los límites permitidos
         guard row >= 0 && row < Board.height else {
-            return .Empty
+            return false
         }
         
         var countPlayer = 0
@@ -125,11 +125,11 @@ struct Board {
 		while indexCol >= 0 && playerAt(col: indexCol, row: row) == player {
 			countPlayer += 1
 			
-			if countPlayer == numberOfChipsToWin {
+			if countPlayer == Board.numberOfChipsToWin {
                     return true
             }
 			
-			indexCol -=1
+			indexCol = indexCol - 1
 		}
 		
 		// Se valida hacia la derecha
@@ -137,11 +137,11 @@ struct Board {
 		while indexCol < Board.width && playerAt(col: indexCol, row: row) == player {
 			countPlayer += 1
 			
-			if countPlayer == numberOfChipsToWin {
+			if countPlayer == Board.numberOfChipsToWin {
                     return true
             }
 			
-			indexCol +=1
+			indexCol = indexCol + 1
 		}
 		
 		// Otra forma de hacerlo
@@ -151,7 +151,7 @@ struct Board {
             if playerAt(col: indexCol, row: row) == player {
                 countPlayer += 1
                 
-                if countPlayer == numberOfChipsToWin {
+                if countPlayer == Board.numberOfChipsToWin {
                     return true
                 }
             } else {
@@ -164,7 +164,7 @@ struct Board {
             if playerAt(col: indexCol, row: row) == player {
                 countPlayer += 1
                 
-                if countPlayer == numberOfChipsToWin {
+                if countPlayer == Board.numberOfChipsToWin {
                     return true
                 }
             } else {
@@ -180,12 +180,12 @@ struct Board {
     func winInADiagonalLeft (col: Int, row: Int, player: Player) -> Bool {
 		// Se controla que la columna se encuentre entre los límites permitidos
 		guard col >= 0 && col < Board.width else {
-			return .Empty
+			return false
 		}
 
 		// Se controla que la fila se encuentre entre los límites permitidos
 		guard row >= 0 && row < Board.height else {
-			return .Empty
+			return false
 		}
 
 		var countPlayer = 0
@@ -196,26 +196,26 @@ struct Board {
 		while (indexCol >= 0 && indexRow >= 0) && playerAt(col: indexCol, row: indexRow) == player {
 			countPlayer += 1
 			
-			if countPlayer == numberOfChipsToWin {
+			if countPlayer == Board.numberOfChipsToWin {
                     return true
             }
 			
-			indexCol -=1
-			indexRow -=1
+			indexCol = indexCol - 1
+			indexRow = indexRow - 1
 		}
 		
 		// Se valida en diagonal hacia la derecha y arriba
-		var indexCol = col+1
-		var indexRow = row+1
+        indexCol = col + 1
+		indexRow = row + 1
 		while (indexCol < Board.width && indexRow < Board.height) && playerAt(col: indexCol, row: indexRow) == player {
 			countPlayer += 1
 			
-			if countPlayer == numberOfChipsToWin {
+			if countPlayer == Board.numberOfChipsToWin {
                     return true
             }
 			
-			indexCol +=1
-			indexRow +=1
+			indexCol = indexCol + 1
+			indexRow = indexRow + 1
 		}
 		
 		// Otra forma de hacerlo
@@ -225,7 +225,7 @@ struct Board {
 			if playerAt(col: index, row: row) == player {
 				countPlayer += 1
 				
-				if countPlayer == numberOfChipsToWin {
+				if countPlayer == Board.numberOfChipsToWin {
 					return true
 				}
 			} else {
@@ -238,7 +238,7 @@ struct Board {
 			if playerAt(col: index, row: row) == player {
 				countPlayer += 1
 				
-				if countPlayer == numberOfChipsToWin {
+				if countPlayer == Board.numberOfChipsToWin {
 					return true
 				}
 			} else {
@@ -254,12 +254,12 @@ struct Board {
     func winInADiagonalRight (col: Int, row: Int, player: Player) -> Bool {
 		// Se controla que la columna se encuentre entre los límites permitidos
 		guard col >= 0 && col < Board.width else {
-			return .Empty
+			return false
 		}
 
 		// Se controla que la fila se encuentre entre los límites permitidos
 		guard row >= 0 && row < Board.height else {
-			return .Empty
+			return false
 		}
 
 		var countPlayer = 0
@@ -270,26 +270,26 @@ struct Board {
 		while (indexCol >= 0 && indexRow < Board.height) && playerAt(col: indexCol, row: indexRow) == player {
 			countPlayer += 1
 			
-			if countPlayer == numberOfChipsToWin {
+			if countPlayer == Board.numberOfChipsToWin {
                     return true
             }
 			
-			indexCol -=1
-			indexRow +=1
+			indexCol = indexCol - 1
+			indexRow = indexRow + 1
 		}
 		
 		// Se valida en diagonal hacia la derecha y abajo
-		var indexCol = col+1
-		var indexRow = row-1
+        indexCol = col + 1
+		indexRow = row - 1
 		while (indexCol < Board.width && indexRow >= 0) && playerAt(col: indexCol, row: indexRow) == player {
 			countPlayer += 1
 			
-			if countPlayer == numberOfChipsToWin {
+			if countPlayer == Board.numberOfChipsToWin {
                     return true
             }
 			
-			indexCol +=1
-			indexRow -=1
+			indexCol = indexCol + 1
+			indexRow = indexRow - 1
 		}
 		
 		// Otra forma de hacerlo
@@ -299,7 +299,7 @@ struct Board {
 			if playerAt(col: index, row: row) == player {
 				countPlayer += 1
 				
-				if countPlayer == numberOfChipsToWin {
+				if countPlayer == Board.numberOfChipsToWin {
 					return true
 				}
 			} else {
@@ -312,7 +312,7 @@ struct Board {
 			if playerAt(col: index, row: row) == player {
 				countPlayer += 1
 				
-				if countPlayer == numberOfChipsToWin {
+				if countPlayer == Board.numberOfChipsToWin {
 					return true
 				}
 			} else {
@@ -327,19 +327,21 @@ struct Board {
 	// Función que retorna si un jugador ha ganado en la columna
 	// Si nadie ha ganado retorna Empty
 	func winColumn (col: Int) -> Player {
-		guard col >= 0 && col < Board.width else {
+		
+        /*
+        guard col >= 0 && col < Board.width else {
             return .Empty
         }
         
         var countPlayer = 0
-        var currentPlayer = playerAt(col: col, row: index)
-		var AntPlayer = .Empty
+        var currentPlayer = playerAt(col: col, row: 0)
+		let AntPlayer = .Empty
         
         for index in 0...Board.height {
             if currentPlayer == player {
                 countPlayer += 1
                 
-                if countPlayer == numberOfChipsToWin {
+                if countPlayer == Board.numberOfChipsToWin {
                     return true
                 }
             } else {
@@ -347,10 +349,13 @@ struct Board {
             }
         }
         return false
+ */
+        return .Empty
 	}
 	
     // Función que retorna si el jugador ha ganado en una columna
     func tie () -> Bool {
+
         // Llamar en bucle a winInAColumn y a winInARow y a winInADiagonal
         
         /*
@@ -383,5 +388,54 @@ for var indexCol: Int = col, indexRow: Int = row; indexCol < Board.width, indexR
  
     }
 	 */
+    return false
+    }
+    
+
 }
 
+//MARK: - Extensions
+// Proxies
+extension Board {
+    var proxyForEquality : [Player] {
+        get {
+            return _board.flatMap{$0}
+        }
+    }
+    
+    var proxyForHashValue : Int {
+        get {
+            var proxy = [Int]()
+            var newVal = 0
+            for player in proxyForEquality {
+                if player == .Red {
+                    newVal = 0
+                }
+                if player == .White {
+                    newVal = 1
+                }
+                if player == .Empty {
+                    newVal = 2
+                }
+                proxy.append(newVal)
+            }
+            return proxy.reduce(0, { (a, b) -> Int in
+                a+b
+            })
+        }
+    }
+}
+
+extension Board : Equatable {
+    public static func ==(lhs: Board, rhs: Board) -> Bool {
+        return lhs.proxyForEquality == rhs.proxyForEquality
+    }
+}
+
+extension Board: Hashable {
+    public var hashValue: Int {
+        get {
+            return self.proxyForHashValue
+        }
+    }
+}

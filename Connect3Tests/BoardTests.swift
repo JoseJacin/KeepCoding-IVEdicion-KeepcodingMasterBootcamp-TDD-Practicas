@@ -57,40 +57,69 @@ class BoardTests: XCTestCase {
     }
     
     // Test de que la columna no cambia de estado cuando se añade una ficha en una columna llena
-    func testNotChangeStatusWhenAddedInAFullColumn() {
+    func testFullColumn_DoesnAcceptNewCoins() {
         // Red player
         board.playAt(col: 0, player: .Red)
-        player = board.playerAt(col: 0, row: 0)
-        XCTAssertEqual(player, .Red)
-        
-        // White player
-        board.playAt(col: 0, player: .White)
-        player = board.playerAt(col: 0, row: 1)
-        XCTAssertEqual(player, .White)
-        
-        // Red player
-        board.playAt(col: 0, player: .Red)
-        player = board.playerAt(col: 0, row: 2)
-        XCTAssertEqual(player, .Red)
-        
-        // White player
-        board.playAt(col: 0, player: .White)
-        player = board.playerAt(col: 0, row: 3)
-        XCTAssertEqual(player, .White)
-        
-        // Red player
-        board.playAt(col: 0, player: .Red)
-        player = board.playerAt(col: 0, row: 4)
-        XCTAssertEqual(player, .Red)
-        
-        let column : Board = board
         
         // White player
         board.playAt(col: 0, player: .White)
         
-        for index in 0..<(Board.height) {
-            XCTAssertEqual(board.playerAt(col: 0, row: index),column.playerAt(col: 0, row: index))
-        }
+        // Red player
+        board.playAt(col: 0, player: .Red)
+        
+        // White player
+        board.playAt(col: 0, player: .White)
+        
+        // Red player
+        board.playAt(col: 0, player: .Red)
+        
+        let alreadyFullBoard : Board! = board
+        
+        // White player
+        board.playAt(col: 0, player: .White)
+        
+        XCTAssertEqual(board,alreadyFullBoard)
+    }
+    
+    // Test de validación de que dos Boards son iguales (y la aserción inversa)
+    func test2EqualBoards_areEqual() {
+        // Empty board
+        let emptyBoard = board
+        XCTAssertEqual(emptyBoard, board)
+        
+        // Some non-empty board
+        var board2 = board
+        
+        board.playAt(col: 0, player: .Red)
+        board2?.playAt(col: 0, player: .Red)
+        
+        XCTAssertEqual(board2, board)
+        
+        // Se comprueba la aserción inversa
+        XCTAssertNotEqual(emptyBoard, board)
+        XCTAssertNotEqual(emptyBoard, board2)
+        
+        board2?.playAt(col: 3, player: .White)
+        XCTAssertNotEqual(board, board2)
+    }
+    
+    // Test de validación de que el Hash de dos Boards son iguales (y la aserción inversa)
+    func testEqualBoards_haveSameHash() {
+        // Caso vacío
+        var board2 : Board! = board
+        
+        XCTAssertEqual(board2.hashValue, board.hashValue)
+        
+        // Caso con jugadas
+        board.playAt(col: 2, player: .Red)
+        board2?.playAt(col: 2, player: .Red)
+        
+        XCTAssertEqual(board2.hashValue, board.hashValue)
+        
+        // Inversa
+        board2?.playAt(col: 3, player: .White)
+        
+        XCTAssertNotEqual(board2.hashValue, board.hashValue)
     }
     
     // Test para comprobar que se ha ganado en una columna
@@ -211,5 +240,35 @@ class BoardTests: XCTestCase {
         XCTAssertEqual(board.winInAColumn(col: 1, row: 3, player: .White), false)
         XCTAssertEqual(board.winInAColumn(col: 0, row: 4, player: .White), false)
         XCTAssertEqual(board.winInAColumn(col: 2, row: 4, player: .White), false)
+    }
+    
+    // Test para comprobar que el Board es vacío
+    func testBoardWithEmptyPosition_isOccupiedByEmptyPlayer() {
+        XCTAssertEqual(board.playerAt(col: 0, row: 0), .Empty)
+        XCTAssertEqual(board.playerAt(col: 1, row: 2), .Empty)
+        XCTAssertEqual(board.playerAt(col: 3, row: 4), .Empty)
+    }
+    
+    // Test para comprobar que el Board NO es vacío
+    func testBoardWithPlayerPosition_hasPositionOccupiedByPlayer() {
+        // White
+        board.playAt(col: 0, player: .White)
+        XCTAssertEqual(board.playerAt(col: 0, row: 0), .White)
+        
+        board.playAt(col: 1, player: .White)
+        XCTAssertEqual(board.playerAt(col: 1, row: 0), .White)
+        
+        board.playAt(col: 2, player: .White)
+        XCTAssertEqual(board.playerAt(col: 2, row: 0), .White)
+        
+        // Red
+        board.playAt(col: 0, player: .Red)
+        XCTAssertEqual(board.playerAt(col: 0, row: 1), .Red)
+        
+        board.playAt(col: 1, player: .Red)
+        XCTAssertEqual(board.playerAt(col: 1, row: 1), .Red)
+        
+        board.playAt(col: 2, player: .Red)
+        XCTAssertEqual(board.playerAt(col: 2, row: 1), .Red)
     }
 }
