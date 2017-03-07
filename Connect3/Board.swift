@@ -22,6 +22,7 @@ struct Board {
     //MARK: - Properties
     static let width = 5 // Ancho
     static let height = 5 // Alto
+    static let numberOfChipsToWin = 3
     
     var _board : [BoardColumn]
 
@@ -73,16 +74,29 @@ struct Board {
     
     // Función que retorna si el jugador ha ganado en una columna
     func winInAColumn (col: Int, row: Int, player: Player) -> Bool {
+        // Se controla que la columna se encuentre entre los límites permitidos
+        guard col >= 0 && col < Board.width else {
+            return .Empty
+        }
+        
+        // Se controla que la fila se encuentre entre los límites permitidos
+        guard row >= 0 && row < Board.height else {
+            return .Empty
+        }
         
         var countPlayer = 0
         var currentPlayer = player
         
+        if row < 2 {
+            return false
+        }
+        
         for index in (0...row).reversed() {
              currentPlayer = playerAt(col: col, row: index)
             if currentPlayer == player {
-                countPlayer = countPlayer + 1
+                countPlayer += 1
                 
-                if countPlayer == 3 {
+                if countPlayer == numberOfChipsToWin {
                     return true
                 }
             } else {
@@ -101,7 +115,7 @@ struct Board {
             if playerAt(col: index, row: row) == player {
                 countPlayer = countPlayer + 1
                 
-                if countPlayer == 3 {
+                if countPlayer == numberOfChipsToWin {
                     return true
                 }
             }
