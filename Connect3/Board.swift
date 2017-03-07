@@ -108,18 +108,34 @@ struct Board {
     
     // Función que retorna si el jugador ha ganado en una columna
     func winInARow (col: Int, row: Int, player: Player) -> Bool {
-        
         var countPlayer = 0
-        
-        for index in 0...Board.width {
+  
+        // Se valida hacia la izquierda
+        for index in (col...Board.width).reversed() {
             if playerAt(col: index, row: row) == player {
                 countPlayer = countPlayer + 1
                 
                 if countPlayer == numberOfChipsToWin {
                     return true
                 }
+            } else {
+                break
             }
         }
+        
+        // Se valida hacia la derecha
+        for index in col...Board.width {
+            if playerAt(col: index, row: row) == player {
+                countPlayer = countPlayer + 1
+                
+                if countPlayer == numberOfChipsToWin {
+                    return true
+                }
+            } else {
+                break
+            }
+        }
+        
         return false
     }
     
