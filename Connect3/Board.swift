@@ -89,7 +89,7 @@ struct Board {
         var countPlayer = 0
         var currentPlayer = player
         
-        if row < 2 {
+        if row < numberOfChipsToWin-1 {
             return false
         }
         
@@ -121,11 +121,37 @@ struct Board {
         }
         
         var countPlayer = 0
-  
-        // Se valida hacia la izquierda
-        for index in (0...col).reversed() {
-            if playerAt(col: index, row: row) == player {
-                countPlayer = countPlayer + 1
+		
+		// Se valida hacia la izquierda
+		var indexCol = col
+		while indexCol >= 0 && playerAt(col: indexCol, row: row) == player {
+			countPlayer += 1
+			
+			if countPlayer == numberOfChipsToWin {
+                    return true
+            }
+			
+			indexCol -=1
+		}
+		
+		// Se valida hacia la derecha
+		indexCol = col+1
+		while indexCol < Board.width && playerAt(col: indexCol, row: row) == player {
+			countPlayer += 1
+			
+			if countPlayer == numberOfChipsToWin {
+                    return true
+            }
+			
+			indexCol +=1
+		}
+		
+		// Otra forma de hacerlo
+		// Se valida hacia la izquierda
+		/*
+		for indexCol in (0...col).reversed() where playerAt(col: indexCol, row: row) == player {
+            if playerAt(col: indexCol, row: row) == player {
+                countPlayer += 1
                 
                 if countPlayer == numberOfChipsToWin {
                     return true
@@ -136,9 +162,9 @@ struct Board {
         }
         
         // Se valida hacia la derecha
-        for index in col...Board.width {
-            if playerAt(col: index, row: row) == player {
-                countPlayer = countPlayer + 1
+        for indexCol in col...Board.width {
+            if playerAt(col: indexCol, row: row) == player {
+                countPlayer += 1
                 
                 if countPlayer == numberOfChipsToWin {
                     return true
@@ -147,12 +173,13 @@ struct Board {
                 break
             }
         }
+		*/
         
         return false
     }
     
-    // Función que retorna si el jugador ha ganado en una diagonal hacia la izquierda y arriba
-    func winInADiagonalLeftUp (col: Int, row: Int, player: Player) -> Bool {
+    // Función que retorna si el jugador ha ganado en diagonal hacia la derecha
+    func winInADiagonalLeft (col: Int, row: Int, player: Player) -> Bool {
 		// Se controla que la columna se encuentre entre los límites permitidos
 		guard col >= 0 && col < Board.width else {
 			return .Empty
@@ -164,22 +191,139 @@ struct Board {
 		}
 
 		var countPlayer = 0
-
-		// Se valida en diagonal hacia la izquierda y arriba
-		for indexColGen in 0..board.width {
-			countPlayer = 0
-			for var indexCol: Int = indexColGen, indexRow: Int = 0; indexCol >= 0, indexRow < board.height; --indexCol, ++indexRow {
-				if playerAt(col: index, row: row) == player {
-					countPlayer = countPlayer + 1
-					
-					if countPlayer == numberOfChipsToWin {
-						return true
-					}
-				} else {
-					break
+		
+		// Se valida en diagonal hacia la izquierda y abajo
+		var indexCol = col
+		var indexRow = row
+		while (indexCol >= 0 && indexRow >= 0) && playerAt(col: indexCol, row: indexRow) == player {
+			countPlayer += 1
+			
+			if countPlayer == numberOfChipsToWin {
+                    return true
+            }
+			
+			indexCol -=1
+			indexRow -=1
+		}
+		
+		// Se valida en diagonal hacia la derecha y arriba
+		var indexCol = col+1
+		var indexRow = row+1
+		while (indexCol < Board.width && indexRow < Board.height) && playerAt(col: indexCol, row: indexRow) == player {
+			countPlayer += 1
+			
+			if countPlayer == numberOfChipsToWin {
+                    return true
+            }
+			
+			indexCol +=1
+			indexRow +=1
+		}
+		
+		// Otra forma de hacerlo
+		// Se valida en diagonal hacia la izquierda y abajo
+		/*
+		for var indexCol: Int = col, indexRow: Int = row; indexCol >= 0, indexRow >= 0; --indexCol, --indexRow {
+			if playerAt(col: index, row: row) == player {
+				countPlayer += 1
+				
+				if countPlayer == numberOfChipsToWin {
+					return true
 				}
+			} else {
+				break
 			}
 		}
+		
+		// Se valida en diagonal hacia la derecha y arriba
+		for var indexCol: Int = col, indexRow: Int = row; indexCol < Board.width, indexRow < Board.height; ++indexCol, ++indexRow {
+			if playerAt(col: index, row: row) == player {
+				countPlayer += 1
+				
+				if countPlayer == numberOfChipsToWin {
+					return true
+				}
+			} else {
+				break
+			}
+		}
+		*/
+		
+		return false
+	}
+
+   // Función que retorna si el jugador ha ganado en diagonal hacia la izquierda
+    func winInADiagonalRight (col: Int, row: Int, player: Player) -> Bool {
+		// Se controla que la columna se encuentre entre los límites permitidos
+		guard col >= 0 && col < Board.width else {
+			return .Empty
+		}
+
+		// Se controla que la fila se encuentre entre los límites permitidos
+		guard row >= 0 && row < Board.height else {
+			return .Empty
+		}
+
+		var countPlayer = 0
+		
+		// Se valida en diagonal hacia la izquierda y arriba
+		var indexCol = col
+		var indexRow = row
+		while (indexCol >= 0 && indexRow < Board.height) && playerAt(col: indexCol, row: indexRow) == player {
+			countPlayer += 1
+			
+			if countPlayer == numberOfChipsToWin {
+                    return true
+            }
+			
+			indexCol -=1
+			indexRow +=1
+		}
+		
+		// Se valida en diagonal hacia la derecha y abajo
+		var indexCol = col+1
+		var indexRow = row-1
+		while (indexCol < Board.width && indexRow >= 0) && playerAt(col: indexCol, row: indexRow) == player {
+			countPlayer += 1
+			
+			if countPlayer == numberOfChipsToWin {
+                    return true
+            }
+			
+			indexCol +=1
+			indexRow -=1
+		}
+		
+		// Otra forma de hacerlo
+		// Se valida en diagonal hacia la izquierda y arriba
+		/*
+		for var indexCol: Int = col, indexRow: Int = row; indexCol >= 0, indexRow < Board.height; --indexCol, ++indexRow {
+			if playerAt(col: index, row: row) == player {
+				countPlayer += 1
+				
+				if countPlayer == numberOfChipsToWin {
+					return true
+				}
+			} else {
+				break
+			}
+		}
+		
+		// Se valida en diagonal hacia la derecha y abajo
+		for var indexCol: Int = col, indexRow: Int = row; indexCol < Board.width, indexRow >= 0; ++indexCol, --indexRow {
+			if playerAt(col: index, row: row) == player {
+				countPlayer += 1
+				
+				if countPlayer == numberOfChipsToWin {
+					return true
+				}
+			} else {
+				break
+			}
+		}
+		*/
+		
+		return false
 	}
     
     // Función que retorna si el jugador ha ganado en una columna
