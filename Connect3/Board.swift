@@ -123,7 +123,7 @@ struct Board {
         var countPlayer = 0
   
         // Se valida hacia la izquierda
-        for index in (col...Board.width).reversed() {
+        for index in (0...col).reversed() {
             if playerAt(col: index, row: row) == player {
                 countPlayer = countPlayer + 1
                 
