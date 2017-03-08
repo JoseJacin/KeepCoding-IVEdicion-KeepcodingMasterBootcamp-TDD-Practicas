@@ -74,8 +74,8 @@ struct Board {
         return _board[col][row]
     }
     
-    // Función que retorna si el jugador ha ganado en una columna
-    func winInAColumn (col: Int, row: Int, player: Player) -> Bool {
+    // Función que retorna si el jugador ha ganado en una columna partiendo de una fila
+    func playerWinnerInAColumnFromRow (col: Int, row: Int, player: Player) -> Bool {
         // Se controla que la columna se encuentre entre los límites permitidos
         guard col >= 0 && col < Board.width else {
             return false
@@ -104,6 +104,32 @@ struct Board {
             }
         }
         return false
+    }
+    
+    // Función que retorna si el jugador ha ganado en una columna partiendo de una fila
+    func playerWinnerInAColumn (col: Int, player:  Player) -> Bool {
+        // Se controla que la columna se encuentre entre los límites permitidos
+        guard col >= 0 && col < Board.width else {
+            return false
+        }
+        
+        return playerWinnerInAColumnFromRow(col: col, row: 0, player: player)
+    }
+    
+    // Función que retorna si un juagador ga ganado en una columna
+    func winnerInAColumn (col: Int) -> Player {
+        // Se controla que la columna se encuentre entre los límites permitidos
+        guard col >= 0 && col < Board.width else {
+            return .Empty
+        }
+        
+        if playerWinnerInAColumn(col: col, player: .Red) == true {
+            return .Red
+        } else if playerWinnerInAColumn(col: col, player: .White) == true {
+            return .White
+        } else {
+            return .Empty
+        }
     }
     
     // Función que retorna si el jugador ha ganado en una columna
@@ -356,7 +382,7 @@ struct Board {
     // Función que retorna si el jugador ha ganado en una columna
     func tie () -> Bool {
 
-        // Llamar en bucle a winInAColumn y a winInARow y a winInADiagonal
+        // Llamar en bucle a playerWinnerInAColumnFromRow y a winInARow y a winInADiagonal
         
         /*
          var rawDataOut = Array(1...40)
@@ -369,7 +395,7 @@ struct Board {
  
 		for (col in )
 		
-		winInAColumn (col: Int, row: Int, player: Player) -> Bool {
+		playerWinnerInAColumnFromRow (col: Int, row: Int, player: Player) -> Bool {
 		
 
 for var indexCol: Int = col, indexRow: Int = row; indexCol < Board.width, indexRow >= 0; ++indexCol, --indexRow {		
