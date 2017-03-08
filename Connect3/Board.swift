@@ -19,13 +19,13 @@ struct Board {
     static let height = 5 // Alto
     static let numberOfChipsToWin = 3 // Número de fichas para ganar
     
-    var _board : [BoardColumn]
+    var _boardRepresentation : [BoardColumn]
 
 
     //MARK: - Initialization
     init() {
         // Create the 5x5 board
-        _board =
+        _boardRepresentation =
         [
             [.Empty, .Empty, .Empty, .Empty, .Empty],
             [.Empty, .Empty, .Empty, .Empty, .Empty],
@@ -37,7 +37,7 @@ struct Board {
     
     // CustomStringConvertible
     var description: String {
-        return _board.description
+        return _boardRepresentation.description
     }
     
     // Función que establece un jugador en la primera posición libre
@@ -48,13 +48,13 @@ struct Board {
             return
         }
         
-        let column = _board[col]
+        let column = _boardRepresentation[col]
         
         // Se asigna el jugador en la primera posición libre (Empty)
         for (index, currentPlayer) in column.enumerated() {
             if currentPlayer == .Empty {
                 // Se mete la ficha
-                _board[col][index] = player
+                _boardRepresentation[col][index] = player
                 break
             }
         }
@@ -74,65 +74,7 @@ struct Board {
         }
         
         // Se retorna la posición
-        return _board[col][row]
-    }
-    
-    // Función que retorna si el jugador ha ganado en una columna partiendo de una fila
-    func playerWinnerInAColumnFromRow (col: Int, row: Int, player: Player) -> Bool {
-        // Se controla que la columna se encuentre entre los límites permitidos
-        guard col >= 0 && col < Board.width else {
-            return false
-        }
-        
-        // Se controla que la fila se encuentre entre los límites permitidos
-        guard row >= 0 && row < Board.height else {
-            return false
-        }
-        
-        var countPlayer = 0
-        
-        if row < Board.numberOfChipsToWin-1 {
-            return false
-        }
-        
-        for index in (0...row).reversed() {
-            if playerAt(col: col, row: index) == player {
-                countPlayer += 1
-                
-                if countPlayer == Board.numberOfChipsToWin {
-                    return true
-                }
-            } else {
-                return false
-            }
-        }
-        return false
-    }
-    
-    // Función que retorna si el jugador ha ganado en una columna
-    func playerWinnerInAColumn (col: Int, player:  Player) -> Bool {
-        // Se controla que la columna se encuentre entre los límites permitidos
-        guard col >= 0 && col < Board.width else {
-            return false
-        }
-        
-        return playerWinnerInAColumnFromRow(col: col, row: Board.height-1, player: player)
-    }
-    
-    // Función que retorna si un juagador ha ganado en una columna
-    func winnerInAColumn (col: Int) -> Player {
-        // Se controla que la columna se encuentre entre los límites permitidos
-        guard col >= 0 && col < Board.width else {
-            return .Empty
-        }
-        
-        if playerWinnerInAColumn(col: col, player: .Red) == true {
-            return .Red
-        } else if playerWinnerInAColumn(col: col, player: .White) == true {
-            return .White
-        } else {
-            return .Empty
-        }
+        return _boardRepresentation[col][row]
     }
     
     // Función que retorna si el jugador ha ganado en una fila partiendo de una columna
@@ -458,7 +400,7 @@ for var indexCol: Int = col, indexRow: Int = row; indexCol < Board.width, indexR
 extension Board {
     var proxyForEquality : [Player] {
         get {
-            return _board.flatMap{$0}
+            return _boardRepresentation.flatMap{$0}
         }
     }
     
@@ -491,10 +433,22 @@ extension Board : Equatable {
     }
 }
 
-extension Board: Hashable {
+extension Board : Hashable {
     public var hashValue: Int {
         get {
             return self.proxyForHashValue
         }
+    }
+}
+
+//MARK: - Accessors
+extension Board {
+    // subscript es una función que no tiene noombre que que se accede a ella mediante los corchetes []
+    // Función que retorna un BoardColumn Optional en caso en que esté fuera de rango
+    subscript (column: Int) -> BoardColumn? {
+        guard column >= 0 && column < Board.width else {
+            return nil
+        }
+        return _boardRepresentation[column]
     }
 }
