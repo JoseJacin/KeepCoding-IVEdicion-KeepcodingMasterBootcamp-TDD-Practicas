@@ -144,14 +144,14 @@ extension Board {
     }
     
     func transposed() -> Board {
-        var aux = Player.Empty
+        //var aux = Player.Empty
         var transposedRepresentation = _boardRepresentation
         
         for i in 0..<Board.width {
             for j in 0..<Board.height {
-                aux = transposedRepresentation[i][j]
-                transposedRepresentation[i][j] = transposedRepresentation[j][i]
-                transposedRepresentation[j][i] = aux
+                //aux = transposedRepresentation[i][j]
+                transposedRepresentation[i][j] = _boardRepresentation[j][i]
+                //transposedRepresentation[j][i] = aux
             }
         }
         return Board(boardRepresentation: transposedRepresentation)

@@ -21,34 +21,43 @@ struct Connect3Rules: GameRules {
     }
     
     //MARK: - Forma del curso de hacerlo
-    func winnerInColumns(player: Player) -> Bool {
+    // Función que retorna el jugador que ha ganado. Si nadie gana, retorna Empty
+    func winner() -> Player {
+        // Validación en columnas
+        for player in [Player.Red, Player.White] {
+            if winnerInColumns(player: player, board: _board) {
+                return player
+            }
+        }
+        
+        // Validación en filas
+        let transpoded = _board.transposed()
+        
+        for player in [Player.Red, Player.White] {
+            if winnerInColumns(player: player, board: transpoded) {
+                return player
+            }
+        }
+        
+        // Validación en diagonal hacia arriba
+        
+        // Validación en diagonal hacia abajo
+        
+        return .Empty
+    }
+    
+    // Función que comprueba si el Player a ganado en una columna
+    func winnerInColumns(player: Player, board: Board) -> Bool {
         for column in 0..<Board.width {
-            if winner(player: player, column: column) {
+            if winner(player: player, column: column, board: board) {
                 return true
             }
         }
         return false
     }
     
-    
-    //Función que retorna el jugador que ha ganado. Si nadie gana, retorna Empty
-    func winner() -> Player {
-        // Valicación en columnas
-        for player in [Player.Red, Player.White] {
-            if winnerInColumns(player: player) {
-                return player
-            }
-        }
-        
-        // Valicación en filas
-        
-        // Valicación en diagonal
-        
-        return .Empty
-    }
-    
-    func winner(player: Player, column: Int) -> Bool {
-        guard let col = _board[column] else {
+    func winner(player: Player, column: Int, board: Board) -> Bool {
+        guard let col = board[column] else {
             return false
         }
         
