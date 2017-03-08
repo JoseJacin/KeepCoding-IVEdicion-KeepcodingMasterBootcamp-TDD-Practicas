@@ -122,8 +122,19 @@ class BoardTests: XCTestCase {
         XCTAssertNotEqual(board2.hashValue, board.hashValue)
     }
     
+    // Test para comprobar que no se puede añadir nada fuera de los rangos
+    func testPlayOutOfBounds_isNOP() {
+        let oldBoard : Board! = board
+        
+        board.playAt(col: Board.width+9, player: .Red)
+        XCTAssertEqual(board, oldBoard)
+        
+        board.playAt(col: -42, player: .White)
+        XCTAssertEqual(board, oldBoard)
+    }
+    
     // Test para comprobar que se ha ganado en una columna
-    func testForAWinInAColumn() {
+    func testBoardWith3InColumn_isAWin() {
         // Column 0
         // Red player
         board.playAt(col: 0, player: .Red)
@@ -135,34 +146,27 @@ class BoardTests: XCTestCase {
         board.playAt(col: 0, player: .Red)
         
         // White player
-        board.playAt(col: 0, player: .White)
+        board.playAt(col: 0, player: .Red)
         
         // Red player
         board.playAt(col: 0, player: .Red)
         
-        // Column 1
-        // Red player
-        board.playAt(col: 1, player: .Red)
+        let r = Connect3Rules(board: board)
+        XCTAssertEqual(r.winner(), .Red)
+        XCTAssertNotEqual(r.winner(), .White)
+        XCTAssertNotEqual(r.winner(), .Empty)
         
-        // Red player
-        board.playAt(col: 1, player: .Red)
-        
-        // White player
-        board.playAt(col: 1, player: .White)
-        
-        // White player
-        board.playAt(col: 1, player: .White)
-        
-        // White player
-        board.playAt(col: 1, player: .White)
-        
-        XCTAssertEqual(board.playerWinnerInAColumnFromRow(col: 1, row: 4, player: .White), true)
-        XCTAssertEqual(board.playerWinnerInAColumnFromRow(col: 1, row: 3, player: .White), false)
-        XCTAssertEqual(board.playerWinnerInAColumnFromRow(col: 0, row: 4, player: .White), false)
-        XCTAssertEqual(board.playerWinnerInAColumnFromRow(col: 2, row: 4, player: .White), false)
+//        XCTAssertEqual(board.playerWinnerInAColumnFromRow(col: 1, row: 4, player: .White), true)
+//        XCTAssertEqual(board.playerWinnerInAColumnFromRow(col: 1, row: 3, player: .White), false)
+//        XCTAssertEqual(board.playerWinnerInAColumnFromRow(col: 0, row: 4, player: .White), false)
+//        XCTAssertEqual(board.playerWinnerInAColumnFromRow(col: 2, row: 4, player: .White), false)
+//        XCTAssertEqual(board.playerWinnerInAColumn(col: 1, player: .White), true)
+//        XCTAssertEqual(board.playerWinnerInAColumn(col: 2, player: .White), false)
+//        XCTAssertEqual(board.winnerInAColumn(col: 1), .White)
+//        XCTAssertEqual(board.winnerInAColumn(col: 2), .Empty)
     }
     
-    // Test para comprobar que se ha ganado en una columna
+    // Test para comprobar que se ha ganado en una fila
     func testForAWinInARow() {
         // Column 0
         // Red player
@@ -196,10 +200,14 @@ class BoardTests: XCTestCase {
         // White player
         board.playAt(col: 4, player: .White)
         
-        XCTAssertEqual(board.winInARow(col: 4, row: 1, player: .White), true)
-        XCTAssertEqual(board.playerWinnerInAColumnFromRow(col: 1, row: 3, player: .White), false)
-        XCTAssertEqual(board.playerWinnerInAColumnFromRow(col: 0, row: 4, player: .White), false)
-        XCTAssertEqual(board.playerWinnerInAColumnFromRow(col: 2, row: 4, player: .White), false)
+        XCTAssertEqual(board.playerWinnerInARowFromColumn(col: 4, row: 1, player: .White), true)
+        XCTAssertEqual(board.playerWinnerInARowFromColumn(col: 1, row: 3, player: .White), false)
+        XCTAssertEqual(board.playerWinnerInARowFromColumn(col: 0, row: 4, player: .White), false)
+        XCTAssertEqual(board.playerWinnerInARowFromColumn(col: 2, row: 4, player: .White), false)
+        //XCTAssertEqual(board.playerWinnerInARow(row: 2, player: .White), true)
+        XCTAssertEqual(board.playerWinnerInARow(row: 1, player: .White), false)
+        //XCTAssertEqual(board.winnerInARow(row: 1), .White)
+        XCTAssertEqual(board.winnerInARow(row: 1), .Empty)
     }
     
     // Test para comprobar que el Board es vacío
@@ -230,5 +238,19 @@ class BoardTests: XCTestCase {
         
         board.playAt(col: 2, player: .Red)
         XCTAssertEqual(board.playerAt(col: 2, row: 1), .Red)
+    }
+    
+    
+    
+    
+    func testTranspondedBoard_Ok() {
+        // Empty board
+        let board2: Board! = board
+        XCTAssertEqual(board2, board)
+        
+        // Some non-empty board
+        //var boardTransponsed: Board! = board2.prueba()
+       
+//        XCTAssertNotEqual(board2.hashValue, boardTranspose.hashValue)
     }
 }

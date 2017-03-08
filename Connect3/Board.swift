@@ -6,13 +6,8 @@
 //  Copyright © 2017 Jose Sanchez Rodriguez. All rights reserved.
 //
 
-enum Player {
-    case Red
-    case White
-    case Empty
-}
-
 // (red, red, white, empty)
+
 // Columna con los jugadores empezando desde abajo
 struct Board {
     
@@ -30,11 +25,19 @@ struct Board {
     //MARK: - Initialization
     init() {
         // Create the 5x5 board
-        _board = [[.Empty, .Empty, .Empty, .Empty, .Empty],
-                  [.Empty, .Empty, .Empty, .Empty, .Empty],
-                  [.Empty, .Empty, .Empty, .Empty, .Empty],
-                  [.Empty, .Empty, .Empty, .Empty, .Empty],
-                  [.Empty, .Empty, .Empty, .Empty, .Empty]]
+        _board =
+        [
+            [.Empty, .Empty, .Empty, .Empty, .Empty],
+            [.Empty, .Empty, .Empty, .Empty, .Empty],
+            [.Empty, .Empty, .Empty, .Empty, .Empty],
+            [.Empty, .Empty, .Empty, .Empty, .Empty],
+            [.Empty, .Empty, .Empty, .Empty, .Empty]
+        ]
+    }
+    
+    // CustomStringConvertible
+    var description: String {
+        return _board.description
     }
     
     // Función que establece un jugador en la primera posición libre
@@ -106,17 +109,17 @@ struct Board {
         return false
     }
     
-    // Función que retorna si el jugador ha ganado en una columna partiendo de una fila
+    // Función que retorna si el jugador ha ganado en una columna
     func playerWinnerInAColumn (col: Int, player:  Player) -> Bool {
         // Se controla que la columna se encuentre entre los límites permitidos
         guard col >= 0 && col < Board.width else {
             return false
         }
         
-        return playerWinnerInAColumnFromRow(col: col, row: 0, player: player)
+        return playerWinnerInAColumnFromRow(col: col, row: Board.height-1, player: player)
     }
     
-    // Función que retorna si un juagador ga ganado en una columna
+    // Función que retorna si un juagador ha ganado en una columna
     func winnerInAColumn (col: Int) -> Player {
         // Se controla que la columna se encuentre entre los límites permitidos
         guard col >= 0 && col < Board.width else {
@@ -132,8 +135,8 @@ struct Board {
         }
     }
     
-    // Función que retorna si el jugador ha ganado en una columna
-    func winInARow (col: Int, row: Int, player: Player) -> Bool {
+    // Función que retorna si el jugador ha ganado en una fila partiendo de una columna
+    func playerWinnerInARowFromColumn (col: Int, row: Int, player: Player) -> Bool {
         // Se controla que la columna se encuentre entre los límites permitidos
         guard col >= 0 && col < Board.width else {
             return false
@@ -168,6 +171,7 @@ struct Board {
             }
 			
 			indexCol = indexCol + 1
+            
 		}
 		
 		// Otra forma de hacerlo
@@ -200,6 +204,35 @@ struct Board {
 		*/
         
         return false
+    }
+    
+    // Función que transpone el board (filas -> columnas, columnas -> filas)
+
+
+    // Función que retorna si el jugador ha ganado en una fila
+    func playerWinnerInARow (row: Int, player:  Player) -> Bool {
+        // Se controla que la columna se encuentre entre los límites permitidos
+        guard row >= 0 && row < Board.height else {
+            return false
+        }
+        
+        return playerWinnerInARowFromColumn(col: 0, row: row, player: player)
+    }
+    
+    // Función que retorna si un juagador ha ganado en una fila
+    func winnerInARow (row: Int) -> Player {
+        // Se controla que la columna se encuentre entre los límites permitidos
+        guard row >= 0 && row < Board.height else {
+            return .Empty
+        }
+        
+        if playerWinnerInARow(row: row, player: .Red) == true {
+            return .Red
+        } else if playerWinnerInARow(row: row, player: .White) == true {
+            return .White
+        } else {
+            return .Empty
+        }
     }
     
     // Función que retorna si el jugador ha ganado en diagonal hacia la derecha
@@ -382,7 +415,7 @@ struct Board {
     // Función que retorna si el jugador ha ganado en una columna
     func tie () -> Bool {
 
-        // Llamar en bucle a playerWinnerInAColumnFromRow y a winInARow y a winInADiagonal
+        // Llamar en bucle a playerWinnerInAColumnFromRow y a playerWinnerInARowFromColumn y a winInADiagonal
         
         /*
          var rawDataOut = Array(1...40)
