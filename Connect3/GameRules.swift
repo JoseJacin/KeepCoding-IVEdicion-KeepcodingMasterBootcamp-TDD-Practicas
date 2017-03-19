@@ -56,6 +56,7 @@ struct Connect3Rules: GameRules {
         return false
     }
     
+    // Función que comprueba si un jugador ha ganado en la columna indicada
     func winner(player: Player, column: Int, board: Board) -> Bool {
         guard let col = board[column] else {
             return false
